@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import Logo from '../../../assets/logodos.png';
-import { HamburguerButton } from './HamburgerButton';
+import { HamburgerButton } from './HamburgerButton';
 
 export const Sidebar = ({ toggleSidebar }) => {
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ export const Sidebar = ({ toggleSidebar }) => {
     <aside className="bg-black w-72 h-screen flex flex-col justify-between fixed left-0 top-0 z-40">
       <div>
         <div className="px-4 pt-4">
-          <HamburguerButton 
+          <HamburgerButton
             toggleSidebar={toggleSidebar}
-            className="p-1"  
+            className="p-1"
           />
         </div>
 
