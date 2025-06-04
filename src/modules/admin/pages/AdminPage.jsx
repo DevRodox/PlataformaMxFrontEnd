@@ -1,6 +1,6 @@
 import { useState } from "react"; 
 import { Outlet } from "react-router"; 
-import { Sidebar, HamburguerButton } from "../components"; 
+import { Sidebar, HamburgerButton } from "../components";
  
 export const AdminPage = () => { 
   const [sidebarOpen, setSidebarOpen] = useState(true); 
@@ -11,11 +11,11 @@ export const AdminPage = () => {
     <div className="flex min-h-screen relative"> 
       {!sidebarOpen && ( 
         <div className="fixed top-0 left-0 z-50 px-4 pt-4">
-          <HamburguerButton 
-            toggleSidebar={toggleSidebar} 
-            text="black" 
-            className="p-1" 
-          /> 
+          <HamburgerButton
+            toggleSidebar={toggleSidebar}
+            text="black"
+            className="p-1"
+          />
         </div>
       )} 
  

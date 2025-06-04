@@ -1,4 +1,4 @@
-export const HamburguerButton = ({ toggleSidebar, text = 'white', className  }) => {
+export const HamburgerButton = ({ toggleSidebar, text = 'white', className  }) => {
     return(
         <>
           <button onClick={ toggleSidebar } className={ className }>
