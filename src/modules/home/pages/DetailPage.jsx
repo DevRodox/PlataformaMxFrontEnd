@@ -1,4 +1,5 @@
   import { useNavigate, useParams } from 'react-router';
+  import { useEffect } from 'react';
   import "@fortawesome/fontawesome-free/css/all.min.css";
   import logo from '../../../assets/logodos.png';
   import { useNewsDetails, useRelatedNews, useAdvertisement } from '../hooks';
@@ -6,17 +7,17 @@
 
   export const DetailPage = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
-    const { newsDetail, loading, error } = useNewsDetails(id);
-    const { relatedNews } = useRelatedNews(id);
+    const { slug } = useParams();
+    const { newsDetail, loading, error } = useNewsDetails(slug);
+    const { relatedNews } = useRelatedNews(slug);
     const { banner } = useAdvertisement();
 
     const handleImageError = (e) => {
       e.target.src = 'https://via.placeholder.com/600x400?text=Imagen+no+disponible';
     };
 
-    const handleRelatedArticleClick = (articleId) => {
-      navigate(`/news/${articleId}`);
+    const handleRelatedArticleClick = (articleSlug) => {
+      navigate(`/news/${articleSlug}`);
     };
 
     if (loading) {
@@ -47,6 +48,34 @@
     instagram: "https://www.instagram.com/_plataformanews?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     //youtube: "https://youtube.com/tupagina",
   };
+
+    useEffect(() => {
+      if (!newsDetail) return;
+
+      const metas = [
+        { property: 'og:title', content: newsDetail.title },
+        { property: 'og:description', content: newsDetail.content[0] || '' },
+        { property: 'og:image', content: newsDetail.images[0] },
+        { property: 'og:author', content: newsDetail.author },
+      ];
+
+      metas.forEach(({ property, content }) => {
+        let el = document.querySelector(`meta[property="${property}"]`);
+        if (!el) {
+          el = document.createElement('meta');
+          el.setAttribute('property', property);
+          document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+      });
+
+      return () => {
+        metas.forEach(({ property }) => {
+          const el = document.querySelector(`meta[property="${property}"]`);
+          if (el) document.head.removeChild(el);
+        });
+      };
+    }, [newsDetail]);
 
     return (
       <>
@@ -102,7 +131,7 @@
                     <div 
                       key={index} 
                       className="flex gap-4 mb-5 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors"
-                      onClick={() => handleRelatedArticleClick(article.id)}
+                      onClick={() => handleRelatedArticleClick(article.slug)}
                     >
                       <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex-shrink-0 rounded-md overflow-hidden relative">
                         <img 
@@ -125,7 +154,7 @@
                       <article 
                         key={`mobile-${index}`} 
                         className="flex-shrink-0 w-[250px] bg-black rounded-xl overflow-hidden relative h-[250px]"
-                        onClick={() => handleRelatedArticleClick(article.id)}
+                        onClick={() => handleRelatedArticleClick(article.slug)}
                       >
                         <img
                           className="w-full h-full object-cover rounded-xl hover:scale-110 transition-transform duration-300"

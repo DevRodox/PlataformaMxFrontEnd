@@ -9,7 +9,7 @@ export const AppRouter = [
     element: <HomePage />,
   },
   {
-    path: "/news/:id",
+    path: "/news/:slug",
     element: <DetailPage />,
   },
   {
