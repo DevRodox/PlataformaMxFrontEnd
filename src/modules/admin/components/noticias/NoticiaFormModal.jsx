@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { X, Upload, Calendar, User, FileType, Layers, Loader } from "lucide-react";
 import { obtenerCategorias } from "../../services";
+import { generateSlug } from "../../utils";
 
 export const NoticiaFormModal = ({
   isOpen,
@@ -174,7 +175,7 @@ export const NoticiaFormModal = ({
       return;
     }
 
-    const formData = { ...form };
+    const formData = { ...form, slug: generateSlug(form.titulo) };
     
     if (modo === "editar") {
       if (!formData.imagen_portada && initialData.imagen_portada_url) {

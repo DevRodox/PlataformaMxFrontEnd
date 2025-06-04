@@ -32,12 +32,13 @@ export const useNoticias = () => {
     }
   }, []);
 
-  const obtenerDetalleCompleto = async (id) => {
-    const { data } = await obtenerDetalleNoticia(id);
+  const obtenerDetalleCompleto = async (slug) => {
+    const { data } = await obtenerDetalleNoticia(slug);
     const detalle = data[0];
-    
+
     return {
       id: detalle.id,
+      slug: detalle.slug,
       titulo: detalle.titulo,
       autor: detalle.autor,
       fecha_publicacion: formatearFecha(detalle.fecha_publicacion),
@@ -56,10 +57,11 @@ export const useNoticias = () => {
 
   const agregarNuevaNoticia = async (data) => {
     const response = await agregarNoticia(data);
-    const { id, imagenes } = response.data;
+    const { id, imagenes, slug } = response.data;
 
     const nuevaNoticia = {
       id,
+      slug: slug || data.slug,
       title: data.titulo,
       image: imagenes.imagen_portada,
       fechaPublicacion: data.fecha_publicacion,

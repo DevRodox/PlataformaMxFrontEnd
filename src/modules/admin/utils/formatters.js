@@ -1,6 +1,7 @@
 export const formatearListadoNoticias = (data) => {
   return data.map((noticia) => ({
     id: noticia.id,
+    slug: noticia.slug,
     title: noticia.titulo,
     image: noticia.imagen_portada,
     fechaPublicacion: noticia.fecha_publicacion,

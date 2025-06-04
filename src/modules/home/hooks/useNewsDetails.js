@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { obtenerDetalleNoticia, obtenerCategorias } from '../../config';
 
-export const useNewsDetails = (newsId) => {
+export const useNewsDetails = (slug) => {
   const [newsDetail, setNewsDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,13 +26,13 @@ export const useNewsDetails = (newsId) => {
 
   useEffect(() => {
     const fetchNewsDetail = async () => {
-      if (!newsId) return;
+      if (!slug) return;
       
       try {
         setLoading(true);
         setError(null);
         
-        const { data } = await obtenerDetalleNoticia(newsId);
+        const { data } = await obtenerDetalleNoticia(slug);
         
         const arrayData = Array.isArray(data) ? data : [];
         
@@ -44,6 +44,7 @@ export const useNewsDetails = (newsId) => {
         
         const formattedNews = {
           id: n.id,
+          slug: n.slug,
           title: n.titulo,
           author: n.autor,
           date: new Date(n.fecha_publicacion).toLocaleDateString("es-MX", {
@@ -72,7 +73,7 @@ export const useNewsDetails = (newsId) => {
     if (Object.keys(categorias).length > 0 || loading) {
       fetchNewsDetail();
     }
-  }, [newsId, categorias]);
+  }, [slug, categorias]);
 
   return { newsDetail, loading, error };
 };

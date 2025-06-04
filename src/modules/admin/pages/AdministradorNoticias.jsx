@@ -44,7 +44,7 @@ export const AdministradorNoticias = () => {
 
   const handleOpenEditForm = async (item) => {
     try {
-      const detalleNoticia = await obtenerDetalleCompleto(item.id);
+      const detalleNoticia = await obtenerDetalleCompleto(item.slug);
       setFormMode("editar");
       setSelectedItem(detalleNoticia);
       setFormModalOpen(true);

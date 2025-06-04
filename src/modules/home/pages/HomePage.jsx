@@ -9,8 +9,8 @@ export const HomePage = () => {
   const { banner } = useAdvertisement();
   const navigate = useNavigate();
 
-  const handleNewsClick = (id) => {
-    navigate(`/news/${id}`);
+  const handleNewsClick = (slug) => {
+    navigate(`/news/${slug}`);
   };
 
   const renderMainSection = () => {
@@ -31,7 +31,7 @@ export const HomePage = () => {
         <div className="lg:hidden w-full mb-8 h-[320px]">
           <MainNews
             slides={newsData.slide}
-            onNewsClick={(id) => handleNewsClick(id)}
+            onNewsClick={(slug) => handleNewsClick(slug)}
           />
         </div>
         
@@ -42,7 +42,7 @@ export const HomePage = () => {
                 key={news.id}
                 image={news.image}
                 description={news.description}
-                onClick={() => handleNewsClick(news.id)}
+                onClick={() => handleNewsClick(news.slug)}
               />
             ))}
           </div>
@@ -51,7 +51,7 @@ export const HomePage = () => {
             <div className="h-full flex">
               <MainNews
                 slides={newsData.slide}
-                onNewsClick={(id) => handleNewsClick(id)}
+                onNewsClick={(slug) => handleNewsClick(slug)}
               />
             </div>
           </div>
@@ -62,7 +62,7 @@ export const HomePage = () => {
                 key={news.id}
                 image={news.image}
                 description={news.description}
-                onClick={() => handleNewsClick(news.id)}
+                onClick={() => handleNewsClick(news.slug)}
               />
             ))}
           </div>
@@ -88,7 +88,7 @@ export const HomePage = () => {
                 key={news.id}
                 image={news.image}
                 description={news.description}
-                onClick={() => handleNewsClick(news.id)}
+                onClick={() => handleNewsClick(news.slug)}
               />
             ))}
           </div>

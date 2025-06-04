@@ -51,16 +51,19 @@ export const useNewsData = () => {
         setNewsData({
           slide: principalNews.map((n) => ({
             id: n.id,
+            slug: n.slug,
             image: n.imagen_portada,
             title: n.titulo,
           })),
           secondNews: siguientes.map((n) => ({
             id: n.id,
+            slug: n.slug,
             image: n.imagen_portada,
             description: n.titulo,
           })),
           more: restantes.map((n) => ({
             id: n.id,
+            slug: n.slug,
             image: n.imagen_portada,
             description: n.titulo,
           })),

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { obtenerNoticias } from '../../config';
 
-export const useRelatedNews = (currentNewsId) => {
+export const useRelatedNews = (currentNewsSlug) => {
   const [relatedNews, setRelatedNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadRelatedNews = async () => {
-      if (!currentNewsId) return;
+      if (!currentNewsSlug) return;
       
       try {
         setLoading(true);
@@ -18,13 +18,14 @@ export const useRelatedNews = (currentNewsId) => {
         const allNews = response.data;
         
         if (Array.isArray(allNews)) {
-          const filteredNews = allNews
-            .filter(news => news.id !== parseInt(currentNewsId))
-            .map(news => ({
-              id: news.id,
-              title: news.titulo,
-              image: news.imagen_portada,
-            }));
+        const filteredNews = allNews
+          .filter(news => news.slug !== currentNewsSlug)
+          .map(news => ({
+            id: news.id,
+            slug: news.slug,
+            title: news.titulo,
+            image: news.imagen_portada,
+          }));
           
           setRelatedNews(filteredNews);
         } else {
@@ -39,7 +40,7 @@ export const useRelatedNews = (currentNewsId) => {
     };
 
     loadRelatedNews();
-  }, [currentNewsId]);
+  }, [currentNewsSlug]);
 
   return { relatedNews, loading, error };
 };
